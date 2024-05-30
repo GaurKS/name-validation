@@ -124,6 +124,31 @@ const validateNames = (userData) => {
   return Bluebird.map(promises, { concurrency: 5, delay: 2000 });
 }
 
+async function runWithBatchingAndErrorHandling(promises: Promise<any>[], batchSize: number = 5, delay: number = 2000): Promise<any[]> {
+  const results: any[] = [];
+  let remainingPromises = promises.slice();
+
+  while (remainingPromises.length > 0) {
+    const batch = remainingPromises.splice(0, batchSize);
+    const settledResults = await Promise.allSettled(batch);
+
+    settledResults.forEach((result) => {
+      if (result.status === 'fulfilled') {
+        results.push(result.value);
+      } else {
+        console.error('Promise rejected:', result.reason);
+        // write to excel
+      }
+    });
+
+    if (remainingPromises.length > 0) {
+      await new Promise((resolve) => setTimeout(resolve, delay)); // Introduce delay between batches
+    }
+  }
+
+  return results;
+}
+
 
 const userData = [
   {
