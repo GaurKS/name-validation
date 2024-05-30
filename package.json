@@ -1,0 +1,25 @@
+{
+  "name": "namevalidation",
+  "version": "1.0.0",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node dist/app.js"
+  },
+  "author": "gaurav",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google/generative-ai": "^0.11.4",
+    "axios": "^0.27.2",
+    "bluebird": "^3.7.2",
+    "exceljs": "^4.4.0",
+    "mongodb": "^6.6.2",
+    "ms": "^2.1.3"
+  },
+  "devDependencies": {
+    "@types/ms": "^0.7.34",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.4.5"
+  }
+}
